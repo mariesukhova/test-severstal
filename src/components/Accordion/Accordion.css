@@ -1,0 +1,54 @@
+.accordion {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.accordion-header {
+  background-color: #04AA6D;
+  padding: 10px;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.accordion-header p {
+  margin: 0;
+}
+
+.accordion-image {
+  height: 20px;
+  width: 20px;
+}
+
+.flipped {
+  transform: rotate(-180deg);
+}
+
+.accordion-and-pagination {
+  padding: 10px;
+  background-color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.accordion-header:disabled {
+  background-color: #f1f1f1;
+}
