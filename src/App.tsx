@@ -43,7 +43,7 @@ function App (): JSX.Element {
               ))}
             </nav>
           </header>
-          <main>
+          <main className='main'>
             <Routes>
               <Route path="/" element={<GetPage />} />
               <Route path="/get" element={<GetPage />} />
@@ -51,7 +51,7 @@ function App (): JSX.Element {
               <Route path="/delete" element={<DeletePage />} />
             </Routes>
           </main>
-          <footer>
+          <footer className="footer">
             <p>2023</p>
           </footer>
         </div>
