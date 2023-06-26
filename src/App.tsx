@@ -16,7 +16,7 @@ const TABS = ['get', 'post', 'delete']
 
 function App (): JSX.Element {
   const path = window.location.pathname
-  const initialActiveTab = path.slice(1)
+  const initialActiveTab = path === '/' ? 'get' : path.slice(1)
   const [activeTab, setActiveTab] = useState(initialActiveTab)
 
   const handleClick = (tab: string) => () => {
