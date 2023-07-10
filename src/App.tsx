@@ -1,54 +1,28 @@
-import React, { useState } from 'react'
-import cn from 'classnames'
+import React from 'react'
 import {
   BrowserRouter,
   Routes,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
 import { StateProvider } from './context'
 import './App.css'
-import GetPage from './pages/get/GetPage'
-import PostPage from './pages/post/PostPage'
-import DeletePage from './pages/delete/DeletePage'
-
-const TABS = ['get', 'post', 'delete']
+import NavBar from './components/NavBar/NavBar'
+import PageContent from './components/PageContent/PageContent'
 
 function App (): JSX.Element {
-  const path = window.location.pathname
-  const initialActiveTab = path === '/' ? 'get' : path.slice(1)
-  const [activeTab, setActiveTab] = useState(initialActiveTab)
-
-  const handleClick = (tab: string) => () => {
-    setActiveTab(tab)
-  }
-
   return (
     <BrowserRouter>
       <StateProvider>
         <div className="flex-container">
           <header>
-            <nav className="nav">
-              {Object.values(TABS).map((tab) => (
-                <Link
-                  key={tab}
-                  to={`/${tab}`}
-                  className={cn('.nav-link', {
-                    active: activeTab === tab
-                  })}
-                  onClick={handleClick(tab)}
-                >
-                  {tab.toUpperCase()}
-                </Link>
-              ))}
-            </nav>
+            <NavBar />
           </header>
           <main>
             <Routes>
-              <Route path="/" element={<GetPage />} />
-              <Route path="/get" element={<GetPage />} />
-              <Route path="/post" element={<PostPage />} />
-              <Route path="/delete" element={<DeletePage />} />
+              <Route path="/" element={<PageContent tab={'get'} path={'/get_get'} />} />
+              <Route path="/get" element={<PageContent tab={'get'} path={'/get_get'} />} />
+              <Route path="/post" element={<PageContent tab={'post'} path={'/post_post'} />} />
+              <Route path="/delete" element={<PageContent tab={'delete'} path={'/delete_delete'} />} />
             </Routes>
           </main>
           <footer>

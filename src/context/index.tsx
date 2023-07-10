@@ -1,15 +1,13 @@
 import React, { createContext, useContext, useState } from 'react'
 import { type IRequest } from '../types/IRequest'
-import { type IAccordionIsOpenByTab } from '../types/IAccordionIsOpenByTab'
-import { type ISelectedPageByTab } from '../types/ITabSelectedPageMap'
+import { type IStateByTab } from '../types/IStateByTab'
 
 interface IState {
   requests: IRequest[]
-  accordionIsOpenByTab: IAccordionIsOpenByTab
-  selectedPageByTab: ISelectedPageByTab
+  stateByTab: IStateByTab
   addRequest: (request: IRequest) => void
-  toggleAccordionIsOpen: (tab: keyof IAccordionIsOpenByTab) => void
-  setSelectedPageBy: (tab: keyof ISelectedPageByTab, page: number) => void
+  toggleAccordionIsOpen: (tab: keyof IStateByTab) => void
+  setSelectedPageBy: (tab: keyof IStateByTab, page: number) => void
 }
 
 interface IStateProvider {
@@ -20,34 +18,37 @@ const StateContext = createContext<IState | null>(null)
 
 const StateProvider = ({ children }: IStateProvider): JSX.Element => {
   const [requests, setRequests] = useState<IRequest[]>([])
-  const [accordionIsOpenByTab, setAccordionIsOpenByTab] = useState<IAccordionIsOpenByTab>({
-    get: false,
-    post: false,
-    delete: false
-  })
-  const [selectedPageByTab, setSelectedPageByTab] = useState<ISelectedPageByTab>({
-    get: 1,
-    post: 1,
-    delete: 1
+  const [stateByTab, setStateByTab] = useState<IStateByTab>({
+    get: {
+      isAccordionOpen: false,
+      selectedPage: 1
+    },
+    post: {
+      isAccordionOpen: false,
+      selectedPage: 1
+    },
+    delete: {
+      isAccordionOpen: false,
+      selectedPage: 1
+    }
   })
 
   const addRequest = (request: IRequest): void => {
     setRequests(prev => prev.concat(request))
   }
-  const toggleAccordionIsOpen = (tab: keyof IAccordionIsOpenByTab): void => {
-    setAccordionIsOpenByTab(prev => ({ ...prev, [tab]: !prev[tab] }))
+  const toggleAccordionIsOpen = (tab: keyof IStateByTab): void => {
+    setStateByTab(prev => ({ ...prev, [tab]: { ...prev[tab], isAccordionOpen: !prev[tab].isAccordionOpen } }))
   }
-  const setSelectedPageBy = (tab: keyof ISelectedPageByTab, page: number): void => {
-    setSelectedPageByTab(prev => ({ ...prev, [tab]: page }))
+  const setSelectedPageBy = (tab: keyof IStateByTab, page: number): void => {
+    setStateByTab(prev => ({ ...prev, [tab]: { ...prev[tab], page } }))
   }
 
   return (
     <StateContext.Provider value={{
       requests,
       addRequest,
-      accordionIsOpenByTab,
+      stateByTab,
       toggleAccordionIsOpen,
-      selectedPageByTab,
       setSelectedPageBy
     }}>
       {children}
