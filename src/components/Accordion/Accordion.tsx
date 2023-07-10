@@ -2,28 +2,27 @@ import React, { useMemo } from 'react'
 import './Accordion.css'
 import cn from 'classnames'
 import Arrow from './arrow.svg'
-import { type IAccordionIsOpenByTab } from '../../types/IAccordionIsOpenByTab'
 import { useStateContext } from '../../context'
-
-interface AccordionProps {
-  tab: keyof IAccordionIsOpenByTab
-}
+import { type IStateByTab } from '../../types/IStateByTab'
 
 const PAGE_SIZE = 20
 
+interface AccordionProps {
+  tab: keyof IStateByTab
+}
+
 export default function Accordion ({ tab }: AccordionProps): JSX.Element {
   const {
-    accordionIsOpenByTab,
     requests,
     toggleAccordionIsOpen,
-    selectedPageByTab,
-    setSelectedPageBy
+    setSelectedPageBy,
+    stateByTab
   } = useStateContext()
-  const currentPageCount = selectedPageByTab[tab]
+  const { isAccordionOpen, selectedPage } = stateByTab[tab]
 
   const paginatedRequests = useMemo(
-    () => requests.slice(currentPageCount * PAGE_SIZE - PAGE_SIZE, currentPageCount * PAGE_SIZE),
-    [requests, selectedPageByTab]
+    () => requests.slice(selectedPage * PAGE_SIZE - PAGE_SIZE, selectedPage * PAGE_SIZE),
+    [requests, selectedPage]
   )
   const pages = useMemo(
     () => Math.ceil(requests.length / PAGE_SIZE),
@@ -43,13 +42,13 @@ export default function Accordion ({ tab }: AccordionProps): JSX.Element {
         <p>REQUESTS</p>
         <img
           className={cn('accordion-image', {
-            flipped: accordionIsOpenByTab[tab]
+            flipped: stateByTab[tab].isAccordionOpen
           })}
           alt="Arrow"
           src={Arrow}
         />
       </button>
-      {accordionIsOpenByTab[tab] && requests.length > 0 && (
+      {isAccordionOpen && requests.length > 0 && (
         <div className="accordion-and-pagination">
           <div className="accordion-content">
             {paginatedRequests.map((request) => (
@@ -64,8 +63,8 @@ export default function Accordion ({ tab }: AccordionProps): JSX.Element {
           </div>
           <div className="pagination">
             <button
-              disabled={currentPageCount === 1}
-              onClick={() => { setSelectedPageBy(tab, currentPageCount - 1) }}>
+              disabled={selectedPage === 1}
+              onClick={() => { setSelectedPageBy(tab, selectedPage - 1) }}>
                 Previos
             </button>
             {Array
@@ -76,15 +75,15 @@ export default function Accordion ({ tab }: AccordionProps): JSX.Element {
                 return <button
                   key={idx}
                   className={cn({
-                    active: page === currentPageCount
+                    active: page === selectedPage
                   })}
                   onClick={() => { setSelectedPageBy(tab, page) }}>
                   {page}
                 </button>
               })}
               <button
-                disabled={currentPageCount === pages}
-                onClick={() => { setSelectedPageBy(tab, currentPageCount + 1) }}>
+                disabled={selectedPage === pages}
+                onClick={() => { setSelectedPageBy(tab, selectedPage + 1) }}>
                 Next
             </button>
           </div>

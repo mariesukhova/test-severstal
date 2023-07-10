@@ -3,13 +3,13 @@ import './PageContent.css'
 import Accordion from '../Accordion/Accordion'
 import { useStateContext } from '../../context'
 import _ from 'lodash'
-import { type IAccordionIsOpenByTab } from '../../types/IAccordionIsOpenByTab'
+import { type IStateByTab } from '../../types/IStateByTab'
 
 const BASE_URL = 'https://httpbin.org/#/HTTP_Methods'
 
 interface IPageContentProps {
   path: string
-  tab: keyof IAccordionIsOpenByTab
+  tab: keyof IStateByTab
 }
 
 export default function PageContent ({ path, tab }: IPageContentProps): JSX.Element {
