@@ -1,28 +1,21 @@
-# Тестовое задание на разработку SPA приложение
-<h3>Условие:</h3>
-<p>Реализовать SPA приложение.</p>
-<p>Меню (навигация по страницам приложения):</p>
+# Test task for developing a Single Page Application (SPA)
+
+<h3>Task:</h3>
+<p>Implement a Single Page Application (SPA).</p>
+<p>Menu (navigation through the application's pages):</p>
 <ul>
 <li>get</li>
 <li>post</li>
 <li>delete</li>
 </ul>
+<p>Menu item "get" corresponds to the "get" page. The page should have a button for sending a request, and when the button is clicked, it should make a call to https://httpbin.org/#/HTTP_Methods/get_get.</p>
+<p>Menu items "post" and "delete" should be implemented in a similar way to "get."</p>
+<p>The area for displaying the response should be a collapsible panel that shows information about all API requests in the form of rows, including the time of the request and the URL.</p>
+<p>Styles can be customized at your discretion (not mandatory).</p>
+<p>Use: React, TypeScript</p>
+<p>Do not use: Bootstrap, State Manager</p>
 
-<p>Пункт меню get = страница get. Страница с кнопкой для отправки запроса, при нажатии на которую происходит вызов
-https://httpbin.org/#/HTTP_Methods/get_get </p>
- 
-<p>Пункты меню post, delete по аналогии с get. </p>
- 
-<p>Область для отображения ответа должна представлять из себя сворачиваемую панель, в
-которой должна отображаться информация о всех обращениях к апи в виде строчек:
-- время обращения, урл запроса </p>
- 
-<p> Стили по своему усмотрению (не обязательно) </p>
-<p> Использовать: React, TypeScript </p>
-<p> Не использовать: Bootstrap, State Manager </p>
-</p>
-
-# Результат:
+# Results:
 
 # Deployed to Vercel: 
 
